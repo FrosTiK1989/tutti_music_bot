@@ -35,7 +35,6 @@ pip install -r requirements.txt
 
 ``
 TOKEN="Токен вашего бота"
-
 ``
 
 ## Как запустить бота
