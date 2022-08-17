@@ -37,16 +37,21 @@ async def answer_for_request(message: types.Message):
         .find(class_="search-result")
         .find_all("a")
     )
-    all_songs = {}
+    all_songs = []
     for item in note:
-        item_text = item.text
-        clear_text = item_text.lstrip("Ноты ")
+        item_text = item.text.lstrip("Ноты ")
         item_url = "https://pianokafe.com" + item.get("href")
         if item_text not in EXCEPT:
-            all_songs[clear_text] = item_url
-    return await bot.send_message(
-        message.chat.id, f"Я нашел:\n{all_songs}".replace(",", "\n")
-        )
+            all_songs.append("Песня: " + item_text)
+            all_songs.append("Ссылка: " + item_url)
+    if not all_songs:
+        return await bot.send_message(
+            message.chat.id, "Я ничего не нашел"
+            )
+    else:
+        return await bot.send_message(
+            message.chat.id, "\n".join(all_songs[:20])
+            )
 
 
 if __name__ == "__main__":
