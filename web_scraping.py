@@ -44,12 +44,13 @@ async def answer_for_request(message: types.Message):
         if item_text not in EXCEPT:
             all_songs.append("Песня: " + item_text)
             all_songs.append("Ссылка: " + item_url)
+
     if not all_songs:
-        return await bot.send_message(
+        await bot.send_message(
             message.chat.id, "Я ничего не нашел"
             )
     else:
-        return await bot.send_message(
+        await bot.send_message(
             message.chat.id, "\n".join(all_songs[:20])
             )
 
